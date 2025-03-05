@@ -45,8 +45,14 @@ namespace HotelProject.WebApi
 
             services.AddScoped<ITestimonialDal, EfTestimonialDal>();
             services.AddScoped<ITestimonialService, TestimonialManager>();
-
-            
+            // Cors yapýlandýrmasý için
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("OtelApiCors", opts =>
+                {
+                    opts.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
 
 
             services.AddControllers();
@@ -67,7 +73,8 @@ namespace HotelProject.WebApi
             }
 
             app.UseRouting();
-
+            // Cors yapýlandýrmasý için
+            app.UseCors("OtelApiCors");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
