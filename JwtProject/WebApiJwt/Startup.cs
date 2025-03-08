@@ -35,8 +35,9 @@ namespace WebApiJwt
                 {
                     ValidIssuer="http://localhost",
                     ValidAudience="http://localhost",
-                    IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aspnetcoreapiapi")),
-                    ValidateIssuerSigningKey=true
+                    IssuerSigningKey=new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aspnetcoreapiapiaspnetcoreapiapiaspnetcoreapiapi")),
+                    ValidateIssuerSigningKey=true,
+                    ClockSkew=TimeSpan.Zero
                 };
             });
             services.AddControllers();
@@ -57,7 +58,7 @@ namespace WebApiJwt
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
