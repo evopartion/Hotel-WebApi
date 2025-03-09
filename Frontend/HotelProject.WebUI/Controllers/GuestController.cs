@@ -66,13 +66,17 @@ namespace HotelProject.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateGuest(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"http://localhost:54005/api/Guest/{id}");
-            if (responseMessage.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateGuestDto>(jsonData);
-                return View(values);
+                var client = _httpClientFactory.CreateClient();
+                var responseMessage = await client.GetAsync($"http://localhost:54005/api/Guest/{id}");
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                    var values = JsonConvert.DeserializeObject<UpdateGuestDto>(jsonData);
+                    return View(values);
+                }
+            
             }
             return View();
         }
