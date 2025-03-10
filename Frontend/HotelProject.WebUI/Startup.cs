@@ -43,6 +43,13 @@ namespace HotelProject.WebUI
                 .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                options.LoginPath = "/Login/Index/";
+            });
             
             services.AddAutoMapper(typeof(Startup));
 
