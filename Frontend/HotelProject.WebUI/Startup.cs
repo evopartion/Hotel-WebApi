@@ -4,8 +4,10 @@ using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.EntityLayer.Concrete;
 using HotelProject.WebUI.Dtos.GuestDto;
 using HotelProject.WebUI.ValidationRules.GuestValidationRules;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,8 +36,17 @@ namespace HotelProject.WebUI
             services.AddTransient<IValidator<CreateGuestDto>, CreateGuestValidator>();
             services.AddTransient<IValidator<UpdateGuestDto>, UpdateGuestValidator>();
             services.AddControllersWithViews().AddFluentValidation();
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
             
             services.AddAutoMapper(typeof(Startup));
+
+
             
         }
 
@@ -51,7 +62,7 @@ namespace HotelProject.WebUI
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
