@@ -32,11 +32,26 @@ namespace HotelProject.WebUI.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> Sendbox()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("http://localhost:54005/api/SendMessage");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultSendboxDto>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
         [HttpGet]
         public IActionResult AddSendMessage()
         {
             return View();
         }
+
+       
         [HttpPost]
         public async Task<IActionResult> AddSendMessage(CreateSendMessage createSendMessage)
         {
