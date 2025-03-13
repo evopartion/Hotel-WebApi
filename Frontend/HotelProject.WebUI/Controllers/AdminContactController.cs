@@ -21,7 +21,7 @@ namespace HotelProject.WebUI.Controllers
         {
 
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("http://localhost:54005/api/api/Contact");
+            var responseMessage = await client.GetAsync("http://localhost:54005/api/Contact");
 
             var client2 = _httpClientFactory.CreateClient();
             var responseMessage2 = await client2.GetAsync("http://localhost:54005/api/Contact/GetContactCount");
@@ -107,7 +107,20 @@ namespace HotelProject.WebUI.Controllers
                 return View(values);
             }
             return View();
-
         }
+
+        //public async Task<IActionResult> GetContactCount()
+        //{
+        //    var client = _httpClientFactory.CreateClient();
+        //    var responseMessage = await client.GetAsync("http://localhost:54005/api/Contact/GetContactCount");
+        //    if (responseMessage.IsSuccessStatusCode)
+        //    {
+        //        var jsonData = await responseMessage.Content.ReadAsStringAsync();
+        //        // var values = JsonConvert.DeserializeObject<List<InboxContactDto>>(jsonData);
+        //        ViewBag.data = jsonData;
+        //        return View();
+        //    }
+        //    return View();
+        //}
     }
 }
