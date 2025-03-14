@@ -16,6 +16,13 @@ namespace HotelProject.DataAccessLayer.EntityFramework
         {
         }
 
+        public int BookingCount()
+        {
+            var context=new Context();
+            var value=context.Bookings.Count();
+            return value;
+        }
+
         public void BookingStatusChangeApproved(Booking booking)
         {
             var context = new Context();
