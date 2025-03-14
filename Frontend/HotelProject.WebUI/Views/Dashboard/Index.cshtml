@@ -1,0 +1,288 @@
+﻿﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+﻿
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hotelier Admin Dashboard Paneli</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/adminweb/images/favicon.png">
+    <!-- Pignose Calender -->
+    <link href="~/adminweb/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="~/adminweb/plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="~/adminweb/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="~/adminweb/css/style.css" rel="stylesheet">
+</head>
+
+<div class="container-fluid mt-3">
+
+    ﻿<div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-1">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Personel Sayısı</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">@ViewBag.staffCount</h2>
+                        <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-2">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Rezervasyon Sayısı</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">@ViewBag.bookingCount</h2>
+                        <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-3">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Toplam Müşteri Sayısı</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">@ViewBag.appUserCount</h2>
+                        <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card gradient-4">
+                <div class="card-body">
+                    <h3 class="card-title text-white">Toplam Oda Sayısı</h3>
+                    <div class="d-inline-block">
+                        <h2 class="text-white">@ViewBag.roomCount</h2>
+                        <p class="text-white mb-0">@DateTime.Now.ToString("MMMM") - @DateTime.Now.Year</p>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="@item.SocialMedia1" class="rounded-circle" width="110" height="110" alt="">
+                        <h5 class="mt-3 mb-1">@item.Name</h5>
+                        <p class="m-0">@item.Title</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+  
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="active-member">
+                    <div class="table-responsive">
+                        <table class="table table-xs mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Müşteri</th>
+                                    <th>Şehir</th>
+                                    <th>Ülke</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.City</td>
+                                    <td>
+                                        <span>@item.Country</span>
+                                    </td>
+                                    @if (item.Status == "Onaylandı")
+                                    {
+                                        <td>
+                                            <div>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-success" style="width: 100%"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><i class="fa fa-circle-o text-success  mr-2"></i> @item.Status</td>
+                                    }
+                                    @if (item.Status == "Müşteri Aranacak")
+                                    {
+                                        <td>
+                                            <div>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-warning" style="width: 100%"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><i class="fa fa-circle-o text-warning  mr-2"></i> @item.Status</td>
+                                    }
+                                    @if (item.Status == "İptal Edildi")
+                                    {
+                                        <td>
+                                            <div>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-danger" style="width: 100%"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><i class="fa fa-circle-o text-danger  mr-2"></i> @item.Status</td>
+                                    }
+                                    @if (item.Status == "Onay Bekliyor")
+                                    {
+                                        <td>
+                                            <div>
+                                                <div class="progress" style="height: 6px">
+                                                    <div class="progress-bar bg-info" style="width: 100%"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><i class="fa fa-circle-o text-info  mr-2"></i> @item.Status</td>
+                                    }
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    ﻿<div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="social-graph-wrapper widget-facebook">
+                    <span class="s-icon"><i class="fa fa-facebook"></i></span>
+                </div>
+                <div class="row">
+                    <div class="col-6 border-right">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">5800</h4>
+                            <p class="m-0">Takipçiler</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">196</h4>
+                            <p class="m-0">Takip Ettiklerin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="social-graph-wrapper widget-linkedin">
+                    <span class="s-icon"><i class="fa fa-linkedin"></i></span>
+                </div>
+                <div class="row">
+                    <div class="col-6 border-right">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">@ViewBag.v5</h4>
+                            <p class="m-0">Takipçiler</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">500++</h4>
+                            <p class="m-0">Takip Ettiklerin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="social-graph-wrapper widget-googleplus">
+                    <span class="s-icon">Instagram</span>
+                </div>
+                <div class="row">
+                    <div class="col-6 border-right">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">@ViewBag.v1</h4>
+                            <p class="m-0">Takipçiler</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">@ViewBag.v2</h4>
+                            <p class="m-0">Takip Ettiklerin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="social-graph-wrapper widget-twitter">
+                    <span class="s-icon"><i class="fa fa-twitter"></i></span>
+                </div>
+                <div class="row">
+                    <div class="col-6 border-right">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">@ViewBag.v3</h4>
+                            <p class="m-0">Takipçiler</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                            <h4 class="m-1">@ViewBag.v4</h4>
+                            <p class="m-0">Takip Ettiklerin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- #/ container -->
+﻿<script src="~/adminweb/plugins/common/common.min.js"></script>
+<script src="~/adminweb/js/custom.min.js"></script>
+<script src="~/adminweb/js/settings.js"></script>
+<script src="~/adminweb/js/gleek.js"></script>
+<script src="~/adminweb/js/styleSwitcher.js"></script>
+
+<!-- Chartjs -->
+<script src="~/adminweb/plugins/chart.js/Chart.bundle.min.js"></script>
+<!-- Circle progress -->
+<script src="~/adminweb/plugins/circle-progress/circle-progress.min.js"></script>
+<!-- Datamap -->
+<script src="~/adminweb/plugins/d3v3/index.js"></script>
+<script src="~/adminweb/plugins/topojson/topojson.min.js"></script>
+<script src="~/adminweb/plugins/datamaps/datamaps.world.min.js"></script>
+<!-- Morrisjs -->
+<script src="~/adminweb/plugins/raphael/raphael.min.js"></script>
+<script src="~/adminweb/plugins/morris/morris.min.js"></script>
+<!-- Pignose Calender -->
+<script src="~/adminweb/plugins/moment/moment.min.js"></script>
+<script src="~/adminweb/plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+<!-- ChartistJS -->
+<script src="~/adminweb/plugins/chartist/js/chartist.min.js"></script>
+<script src="~/adminweb/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<script src="~/adminweb/js/dashboard/dashboard-1.js"></script>
