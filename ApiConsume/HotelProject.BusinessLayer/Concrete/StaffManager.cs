@@ -16,6 +16,9 @@ namespace HotelProject.BusinessLayer.Concrete
         {
             _staffDal = staffDal;
         }
+
+       
+
         public void TDelete(Staff t)
         {
             _staffDal.Delete(t);
@@ -39,6 +42,11 @@ namespace HotelProject.BusinessLayer.Concrete
         public void TInsert(Staff t)
         {
             _staffDal.Insert(t);
+        }
+
+        public List<Staff> TLast4Staff()
+        {
+            return _staffDal.Last4Staff();
         }
 
         public void TUpdate(Staff t)

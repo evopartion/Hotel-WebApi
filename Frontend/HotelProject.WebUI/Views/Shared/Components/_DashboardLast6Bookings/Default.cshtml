@@ -1,4 +1,5 @@
-﻿
+﻿@model List<HotelProject.WebUI.Dtos.BookingDto.ResultLast6BookingDto>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -19,9 +20,9 @@
                                 {
                                 <tr>
                                     <td>@item.Name</td>
-                                    <td>@item.City</td>
+                                    <td>Şehir</td>
                                     <td>
-                                        <span>@item.Country</span>
+                                        <span>Ülke</span>
                                     </td>
                                     @if (item.Status == "Onaylandı")
                                     {
